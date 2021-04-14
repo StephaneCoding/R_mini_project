@@ -1,12 +1,12 @@
 library(Hmisc)
 rm(list=ls()) #removes all variables stored previously
 
-data <- read.csv("~/Documents/covid_R/COVID19_line_list_data.csv")
+data <- read.csv("~/Documents/R/covid_R/COVID19_line_list_data.csv")
 #from Hmisc
 describe(data) 
 
 #clean up death column as there are some dates into it 
-data$death_dummy <- as.integer(data$death!= 0)
+data$death_dummy <- as.integer(data$death != 0)
 
 # death rate
 sum(data$death_dummy) / nrow(data)
@@ -23,10 +23,8 @@ mean(alive$age, na.rm = TRUE)
 
 # is this statistically significant?
 t.test(alive$age, dead$age, alternative="two.sided", conf.level = 0.99)
-# normally, if p-value < 0.05, we reject null hypothesis/conjecture
-# here, p-value ~ 0, so we reject the null hypothesis and 
+# p-value < 0.05 => we reject null hypothesis/conjecture
 # conclude that this is statistically significant 
-#people who die are older: 99 percent confidence interval: -25.52122 -15.50661 (delta alive-death)
 # claim is true 
 
 # GENDER
@@ -38,9 +36,20 @@ mean(women$death_dummy, na.rm = TRUE)
 
 # is this statistically significant?
 t.test(men$death_dummy, women$death_dummy, alternative="two.sided", conf.level = 0.99)
-# 99% confidence: men have from 0.8% to 8.8% higher chance
-# of dying.
-# p-value = 0.002 < 0.05, so this is statistically
-# significant
+# p-value = 0.002 < 0.05, so this is statistically significant
 # claim is true
+
+
+#GRAPH date-deaths
+
+#date format
+dDate = as.Date(data$reporting.date, "%m/%d")
+
+#regroup the date with aggregate() and FUN=sum to sum the values of the same date
+a = aggregate(data$death_dummy, by=list(reporting.date=dDate), FUN=sum)
+
+#Once I aggregate, I convert to a list and then a data.frame
+new_df = as.data.frame(as.list(a))
+new_df
+plot(new_df$reporting.date, new_df$x, type="l", xlab="Date",ylab="Deaths", ylim = c(0,17)) 
 
