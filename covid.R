@@ -23,7 +23,7 @@ mean(alive$age, na.rm = TRUE)
 
 # is this statistically significant?
 t.test(alive$age, dead$age, alternative="two.sided", conf.level = 0.99)
-# normally, if p-value < 0.05, we reject null hypothesis
+# normally, if p-value < 0.05, we reject null hypothesis/conjecture
 # here, p-value ~ 0, so we reject the null hypothesis and 
 # conclude that this is statistically significant 
 #people who die are older: 99 percent confidence interval: -25.52122 -15.50661 (delta alive-death)
