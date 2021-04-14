@@ -12,6 +12,8 @@ data$death_dummy <- as.integer(data$death!= 0)
 sum(data$death_dummy) / nrow(data)
 
 # AGE
+# claim: people who die are older
+
 dead = subset(data, death_dummy == 1)
 alive = subset(data, death_dummy == 0)
 
@@ -24,10 +26,11 @@ t.test(alive$age, dead$age, alternative="two.sided", conf.level = 0.99)
 # normally, if p-value < 0.05, we reject null hypothesis
 # here, p-value ~ 0, so we reject the null hypothesis and 
 # conclude that this is statistically significant 
-# claim: people who die are older: 99 percent confidence interval: -25.52122 -15.50661 (delta alive-death)
-
+#people who die are older: 99 percent confidence interval: -25.52122 -15.50661 (delta alive-death)
+# claim is true 
 
 # GENDER
+# claim: gender has no effect
 men = subset(data, gender == "male")
 women = subset(data, gender == "female")
 mean(men$death_dummy, na.rm = TRUE) 
@@ -39,5 +42,5 @@ t.test(men$death_dummy, women$death_dummy, alternative="two.sided", conf.level =
 # of dying.
 # p-value = 0.002 < 0.05, so this is statistically
 # significant
-# claim: gender has no effect
+# claim is true
 
