@@ -37,7 +37,7 @@ mean(women$death_dummy, na.rm = TRUE)
 # is this statistically significant?
 t.test(men$death_dummy, women$death_dummy, alternative="two.sided", conf.level = 0.99)
 # p-value = 0.002 < 0.05, so this is statistically significant
-# claim is true
+# claim is false
 
 
 #GRAPH date-deaths
